@@ -20,7 +20,9 @@ export const InputField: React.FC<InputFieldProps> = ({
   const [field, { error }] = useField(props);
   return (
     <FormControl isInvalid={!!error}>
-      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      <FormLabel mt={3} htmlFor={field.name}>
+        {label}
+      </FormLabel>
       <Input
         {...field}
         {...props}
