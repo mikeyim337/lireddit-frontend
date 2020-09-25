@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, setNestedObjectValues } from "formik";
+import { Formik, Form } from "formik";
 import { Box, Button, Link, Flex } from "@chakra-ui/core";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
@@ -11,8 +11,6 @@ import { createUrqlClient } from "./../utils/createUrqlClient";
 import { withUrqlClient } from "next-urql";
 
 import NextLink from "next/link";
-
-interface registerProps {}
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -26,8 +24,12 @@ const Login: React.FC<{}> = ({}) => {
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
+            if (typeof router.query.next === "string") {
+              router.push(router.query.next);
+            } else {
+              router.push("/");
+            }
             //worked
-            router.push("/");
           }
         }}
       >
